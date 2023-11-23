@@ -297,6 +297,11 @@ int main(int argc, const char *argv[]) {
 				printf("ignore_trigger_times may have unintended consequences (issue 499)\n");
 			} else if (!strcmp(argv[i], "--terse")) {
 				opts.isAddNamePostFixes = false;
+			// JOP
+			} else if (!strcmp(argv[i], "--force3dlas")) {
+				opts.isSave3D = true;
+				opts.isCrop = false;
+			//JOP end 
 			} else if (!strcmp(argv[i], "--version")) {
 				printf("%s\n", kDCMdate);
 				return kEXIT_REPORT_VERSION;

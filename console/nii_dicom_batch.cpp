@@ -7308,7 +7308,9 @@ int saveDcm2NiiCore(int nConvert, struct TDCMsort dcmSort[], struct TDICOMdata d
 	//3D-EPI vs 3D SPACE/MPRAGE/ETC
 	bool isFlipY = false;
 	bool isSetOrtho = false;
-	if ((opts.isRotate3DAcq) && (dcmList[dcmSort[0].indx].is3DAcq) && (!dcmList[dcmSort[0].indx].isEPI) && (hdr0.dim[3] > 1) && (hdr0.dim[0] < 4)) {
+// JOP Removed check for EPI
+	// if ((opts.isRotate3DAcq) && (dcmList[dcmSort[0].indx].is3DAcq) && (!dcmList[dcmSort[0].indx].isEPI) && (hdr0.dim[3] > 1) && (hdr0.dim[0] < 4)) {
+	if ((opts.isRotate3DAcq) && (dcmList[dcmSort[0].indx].is3DAcq) && (hdr0.dim[3] > 1) && (hdr0.dim[0] < 4)) {					
 		bool isSliceEquidistant = true; //issue539
 		if ((nConvert > 0)  && (sliceMMarray != NULL)){
 			float dx = sliceMMarray[1] - sliceMMarray[0];
@@ -7483,7 +7485,9 @@ int saveDcm2NiiCore(int nConvert, struct TDCMsort dcmSort[], struct TDICOMdata d
 		free(sliceMMarray);
 	}
 	//3D-EPI vs 3D SPACE/MPRAGE/ETC
-	if ((opts.isRotate3DAcq) && (opts.isCrop) && (dcmList[indx0].is3DAcq) && (!dcmList[indx0].isEPI) && (hdr0.dim[3] > 1) && (hdr0.dim[0] < 4)) //for T1 scan: && (dcmList[indx0].TE < 25)
+	// JOP Remove EPI check
+	// if ((opts.isRotate3DAcq) && (opts.isCrop) && (dcmList[indx0].is3DAcq) && (!dcmList[indx0].isEPI) && (hdr0.dim[3] > 1) && (hdr0.dim[0] < 4)) //for T1 scan: && (dcmList[indx0].TE < 25)
+	if ((opts.isRotate3DAcq) && (opts.isCrop) && (dcmList[indx0].is3DAcq) && (hdr0.dim[3] > 1) && (hdr0.dim[0] < 4)) //for T1 scan: && (dcmList[indx0].TE < 25)
 		returnCode = nii_saveCrop(pathoutname, hdr0, imgM, opts, dcmList[dcmSort[0].indx]);														//n.b. must be run AFTER nii_setOrtho()!
 #ifdef USING_R
 	// Note that for R, only one image should be created per series
